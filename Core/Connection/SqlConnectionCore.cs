@@ -186,8 +186,7 @@ namespace Core.Connection
             if (sqlConnection != null)
             {
                 sqlConnection.Close();
-                sqlConnection.Dispose();
-                this.Dispose();
+                sqlConnection.Dispose();                
                 GC.SuppressFinalize(sqlConnection);
             }
         }

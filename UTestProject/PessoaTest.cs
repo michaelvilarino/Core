@@ -30,8 +30,11 @@ namespace UTestProject
         [TestMethod]
         public void GetList()
         {
-            _pessoaRepository = new PessoaRepository(_sqlConnectionCore);
-            var pessoas = _pessoaRepository.GetAll();
+            using (SqlConnectionCore connection = new SqlConnectionCore(ConfigurationManager.ConnectionStrings["Conexao"].ConnectionString))
+            {
+                _pessoaRepository = new PessoaRepository(connection);
+                var pessoas = _pessoaRepository.GetAll();
+            }
         }
 
         [TestMethod]

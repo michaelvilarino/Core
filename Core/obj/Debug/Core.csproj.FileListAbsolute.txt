@@ -16,3 +16,7 @@ D:\Fontes\Michael_TFS\Core\Core\bin\Debug\Core.pdb
 D:\Fontes\Michael_TFS\Core\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
 D:\Fontes\Michael_TFS\Core\Core\obj\Debug\Core.dll
 D:\Fontes\Michael_TFS\Core\Core\obj\Debug\Core.pdb
+C:\Users\michael.melo\Source\Repos\Core\Core\bin\Debug\Core.dll
+C:\Users\michael.melo\Source\Repos\Core\Core\bin\Debug\Core.pdb
+C:\Users\michael.melo\Source\Repos\Core\Core\obj\Debug\Core.dll
+C:\Users\michael.melo\Source\Repos\Core\Core\obj\Debug\Core.pdb
