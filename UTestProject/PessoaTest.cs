@@ -59,12 +59,15 @@ namespace UTestProject
 
             var result = new Pessoa();
 
-            Pessoa pessoa = new Pessoa() { };
-            
-            pessoa.Nome_pessoa = "teste2";
+           // long proximoId = _pessoaRepository.ProximoId();
 
-            if(_pessoaRepository.GetByName(pessoa.Nome_pessoa) != null)
-               result = _pessoaRepository.Insert(pessoa);
+            Pessoa pessoa = new Pessoa() { };
+
+           // pessoa.Id = proximoId;
+            pessoa.Nome_pessoa = "teste25";
+
+            //if(_pessoaRepository.GetByName(pessoa.Nome_pessoa) == null)
+               result = _pessoaRepository.Inserir(pessoa);
         }
 
         [TestMethod]

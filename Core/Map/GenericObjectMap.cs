@@ -33,7 +33,7 @@ namespace UTestProject.Map
 
                 if (!pkMapped && column.Key == "Id")
                 {
-                    Map(lambda).ToColumn(column.Key).IsKey();
+                    Map(lambda).ToColumn(column.Key).IsKey().IsIdentity();
                     pkMapped = true;
                     continue;
                 }

@@ -29,9 +29,9 @@ namespace Core.BaseRepository
             return _sqlConnectionCore.Select<TEntity>(predicate);
         }
 
-        public TEntity Insert(TEntity entity)
+        public object Insert(TEntity entity)
         {
-            return (TEntity)_sqlConnectionCore.Insert<TEntity>(entity);
+            return _sqlConnectionCore.Insert<TEntity>(entity);
         }
 
         public bool Update(TEntity entity)

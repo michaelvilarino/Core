@@ -24,15 +24,18 @@ namespace Core.Connection
 
           public IEnumerable<T> QueryTSql<T>(string Sql, object param) where T : class
           {
-              return sqlConnection.Query<T>(Sql, param, Transaction);
-          }
+            if(Transaction != null)
+               return sqlConnection.Query<T>(Sql, param, Transaction);
+            else
+                return sqlConnection.Query<T>(Sql, param);
+        }
 
           public IEnumerable<T> GetAll<T>() where T : class
           {
               return sqlConnection.GetAll<T>();
           }
 
-          public T Get<T>(long Id) where T: class
+          public T Get<T>(object Id) where T: class
           {
               return sqlConnection.Get<T>(Id);
           }
@@ -85,21 +88,33 @@ namespace Core.Connection
 
         #region CRUD
 
-        public T Insert<T>(T entity) where T : class
+        public object Insert<T>(T entity) where T : class
           {
-              var Id = sqlConnection.Insert<T>(entity);
-              return sqlConnection.Get<T>(Id);
+            object Id = 0;
+
+            if (Transaction != null)
+                Id = sqlConnection.Insert<T>(entity,Transaction);
+            else
+                Id = sqlConnection.Insert<T>(entity);
+
+            return Id;
           }
 
           public bool Update<T>(T entity) where T: class
           {
-              return sqlConnection.Update<T>(entity);
-          }
+            if (Transaction != null)
+                return sqlConnection.Update<T>(entity,Transaction);
+            else
+                return sqlConnection.Update<T>(entity);
+        }
 
           public bool Delete<T>(T entity) where T : class
           {
-              return sqlConnection.Delete<T>(entity);
-          }
+            if (Transaction != null)
+                return sqlConnection.Delete<T>(entity, Transaction);
+            else
+                return sqlConnection.Delete<T>(entity);
+        }
 
         #endregion CRUD
 
@@ -111,6 +126,9 @@ namespace Core.Connection
                    if (sqlConnection.Equals(null))
                        throw new Exception("A conexão não está ativa");
 
+                if (sqlConnection.State == ConnectionState.Closed)
+                    sqlConnection.Open();
+
                    Transaction = sqlConnection.BeginTransaction();
                }
                catch (Exception e)
@@ -120,7 +138,7 @@ namespace Core.Connection
            }
 
         
-           public ConnectionState ConnectionState()
+           public ConnectionState connectionState()
            {
                return sqlConnection.State;
            }

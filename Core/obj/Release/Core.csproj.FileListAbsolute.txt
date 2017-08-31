@@ -6,3 +6,8 @@ C:\Users\michael.melo\Source\Repos\Core\Core\bin\Release\Core.dll
 C:\Users\michael.melo\Source\Repos\Core\Core\bin\Release\Core.pdb
 C:\Users\michael.melo\Source\Repos\Core\Core\obj\Release\Core.dll
 C:\Users\michael.melo\Source\Repos\Core\Core\obj\Release\Core.pdb
+D:\Michael\Projetos\C#\CoreGitHub\Core\Core\bin\Release\Core.dll
+D:\Michael\Projetos\C#\CoreGitHub\Core\Core\bin\Release\Core.pdb
+D:\Michael\Projetos\C#\CoreGitHub\Core\Core\obj\Release\Core.csprojResolveAssemblyReference.cache
+D:\Michael\Projetos\C#\CoreGitHub\Core\Core\obj\Release\Core.dll
+D:\Michael\Projetos\C#\CoreGitHub\Core\Core\obj\Release\Core.pdb

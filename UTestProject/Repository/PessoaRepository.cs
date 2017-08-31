@@ -27,5 +27,19 @@ namespace UTestProject.Repository
         {
             return _connection.Select<Pessoa>(p => p.Nome_pessoa == name).FirstOrDefault();
         }
+
+        public long ProximoId()
+        {
+            return _connection.GetAll<Pessoa>().Max(m => m.Id) + 1;
+        }
+
+        public Pessoa Inserir(Pessoa pessoa)
+        {
+            _connection.BeginTransaction();
+               var IdPessoa =  _connection.Insert<Pessoa>(pessoa);
+            _connection.CommitTransaction();
+
+            return _connection.Get<Pessoa>(IdPessoa);
+        }
     }
 }
