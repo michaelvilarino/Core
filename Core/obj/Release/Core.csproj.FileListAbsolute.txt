@@ -11,3 +11,8 @@ D:\Michael\Projetos\C#\CoreGitHub\Core\Core\bin\Release\Core.pdb
 D:\Michael\Projetos\C#\CoreGitHub\Core\Core\obj\Release\Core.csprojResolveAssemblyReference.cache
 D:\Michael\Projetos\C#\CoreGitHub\Core\Core\obj\Release\Core.dll
 D:\Michael\Projetos\C#\CoreGitHub\Core\Core\obj\Release\Core.pdb
+D:\Fontes\GitHub\Core\Core\Core\bin\Release\Core.dll
+D:\Fontes\GitHub\Core\Core\Core\bin\Release\Core.pdb
+D:\Fontes\GitHub\Core\Core\Core\obj\Release\Core.csprojResolveAssemblyReference.cache
+D:\Fontes\GitHub\Core\Core\Core\obj\Release\Core.dll
+D:\Fontes\GitHub\Core\Core\Core\obj\Release\Core.pdb

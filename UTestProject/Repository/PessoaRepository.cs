@@ -41,5 +41,26 @@ namespace UTestProject.Repository
 
             return _connection.Get<Pessoa>(IdPessoa);
         }
+
+        public IEnumerable<Pessoa> GetPessoa_Dependentes()
+        {
+            return _connection.SelectJoin<Pessoa, Dependente, Pessoa>((pessoa, dependente) => {
+
+                pessoa.Dependentes.Add(dependente);
+
+                return pessoa;
+            });
+        }
+
+        public IEnumerable<Pessoa> GetPessoa_Trabalhos()
+        {
+            return _connection.SelectJoin<Pessoa, Trabalho, Pessoa>((pessoa, trabalho) => {
+
+                pessoa.Trabalhos.Add(trabalho);
+
+                return pessoa;
+
+            });    
+        }
     }
 }

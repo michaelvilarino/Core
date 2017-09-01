@@ -15,6 +15,7 @@ namespace UTestProject
     {
         private PessoaRepository _pessoaRepository;
         private DependenteRepository _dependenteRepository;
+        private TrabalhoRepository _trabalhoRepository;
 
         SqlConnectionCore _sqlConnectionCore;
 
@@ -24,6 +25,7 @@ namespace UTestProject
 
             RegisterMappings.Register<Pessoa>();
             RegisterMappings.Register<Dependente>();
+            RegisterMappings.Register<Trabalho>();
             RegisterMappings.InitializeConfigMappings();
         }
 
@@ -50,6 +52,13 @@ namespace UTestProject
             _dependenteRepository = new DependenteRepository(_sqlConnectionCore);
 
             var result = _dependenteRepository.GetDependentes_Pessoas().ToList();
+        }
+
+        [TestMethod]
+        public void GetPessoasDependentes()
+        {
+            _pessoaRepository = new PessoaRepository(_sqlConnectionCore);
+            var result = _pessoaRepository.GetPessoa_Dependentes();
         }
 
         [TestMethod]
@@ -86,6 +95,42 @@ namespace UTestProject
             _dependenteRepository = new DependenteRepository(_sqlConnectionCore);
 
             List<Dependente> Dependentes = _dependenteRepository.GetDependentes_Pessoas().ToList();
+        }
+
+        [TestMethod]
+        public void getPessoa_Trabalhos()
+        {
+            _trabalhoRepository = new TrabalhoRepository(_sqlConnectionCore);
+            var result = _trabalhoRepository.GettrabalhosPessoas();
+        }
+
+        [TestMethod]
+        public void GetAllTrabalhos()
+        {
+            _trabalhoRepository = new TrabalhoRepository(_sqlConnectionCore);
+
+            var result = _trabalhoRepository.GetAll();
+        }
+
+        [TestMethod]
+        public void GetPessoa_trabalho()
+        {
+            _pessoaRepository = new PessoaRepository(_sqlConnectionCore);
+            var result = _pessoaRepository.GetPessoa_Trabalhos();
+        }
+
+        [TestMethod]
+        public void CadastraTrabalho()
+        {
+
+            Trabalho trabalho   = new Trabalho();
+            trabalho.Descricao  = "Juiz";
+            trabalho.Salario    = 2000;
+            trabalho.PessoaId   = 8;
+
+            _trabalhoRepository = new TrabalhoRepository(_sqlConnectionCore);
+            _trabalhoRepository.Insert(trabalho);
+
         }
     }
 }

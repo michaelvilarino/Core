@@ -17,6 +17,28 @@ namespace Core.MappingClass
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class Key : Attribute
+    {
+        public string Column { get; private set; }
+
+        public Key(string column)
+        {
+            Column = column;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class Key_AutoIncrement : Attribute
+    {
+        public string Column { get; private set; }
+
+        public Key_AutoIncrement(string column)
+        {
+            Column = column;
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class DBColumn : Attribute
     {
         public string Column { get; private set; }
@@ -28,13 +50,13 @@ namespace Core.MappingClass
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class DBColumnFk : Attribute
+    public class DBColumnForeignKey : Attribute
     {
-        public object classFk { get; private set; }
+        public string Column { get; private set; }
 
-        public DBColumnFk(string columnFk, object ClassFk)
+        public DBColumnForeignKey(string column)
         {
-            classFk = ClassFk;
+            Column = column;
         }
     }
 
@@ -42,18 +64,16 @@ namespace Core.MappingClass
     {
         public Type Type { get; private set; }
         public string Table { get; private set; }
-        public IDictionary<string,PropertyInfo> Pk { get; set; }
-        public IDictionary<string, PropertyInfo> DBColumnCollection { get; set; }
+        public IDictionary<string,PropertyInfo>  PkCollection { get; set; }
+        public IDictionary<string, PropertyInfo> PkAutoIncrementCollection { get; set; }
+        public IDictionary<string, PropertyInfo> DBColumnCollection     { get; set; }
+        public IDictionary<string, PropertyInfo> DBColumnForeignKeyCollection { get; set; }
 
         public MapClass()
         {
             Type = typeof(T);
             GetTableName();
-            FillDBColumnCollection();
-
-            Pk = new Dictionary<string, PropertyInfo>();
-
-            Pk.Add(DBColumnCollection["Id"].Name, DBColumnCollection["Id"]);         
+            FillDBColumnCollection();                                          
         }
 
         private void GetTableName()
@@ -64,14 +84,32 @@ namespace Core.MappingClass
 
         private void FillDBColumnCollection()
         {
-            DBColumnCollection = new Dictionary<string, PropertyInfo>();
+            PkCollection                 = new Dictionary<string, PropertyInfo>();
+            PkAutoIncrementCollection    = new Dictionary<string, PropertyInfo>();
+            DBColumnCollection           = new Dictionary<string, PropertyInfo>();
+            DBColumnForeignKeyCollection = new Dictionary<string, PropertyInfo>();
 
             foreach (PropertyInfo prop in Type.GetProperties())
             {
-                DBColumn attributes = prop.GetCustomAttributes(typeof(DBColumn), true).Select(attr => (DBColumn)attr).FirstOrDefault();               
+                Key attributesKey = prop.GetCustomAttributes(typeof(Key), true).Select(attr => (Key)attr).FirstOrDefault();
 
-                if(attributes != null)
-                  DBColumnCollection.Add(attributes.Column, prop);
+                Key_AutoIncrement attributesKey_AutoIncrement = prop.GetCustomAttributes(typeof(Key_AutoIncrement), true).Select(attr => (Key_AutoIncrement)attr).FirstOrDefault();
+
+                DBColumnForeignKey attributesForeignKey = prop.GetCustomAttributes(typeof(DBColumnForeignKey), true).Select(attr => (DBColumnForeignKey)attr).FirstOrDefault();
+
+                DBColumn attributesColumn = prop.GetCustomAttributes(typeof(DBColumn), true).Select(attr => (DBColumn)attr).FirstOrDefault();
+
+                if (attributesColumn != null)
+                  DBColumnCollection.Add(attributesColumn.Column, prop);
+
+                if (attributesForeignKey != null)
+                  DBColumnForeignKeyCollection.Add(attributesForeignKey.Column, prop);                
+
+                if (attributesKey != null)
+                  PkCollection.Add(attributesKey.Column, prop);
+
+                if (attributesKey_AutoIncrement != null)
+                  PkAutoIncrementCollection.Add(attributesKey_AutoIncrement.Column, prop);
             }
         }
     }
