@@ -8,7 +8,7 @@ namespace Core.BaseRepository
     {
         IEnumerable<TEntity> GetAll();
         TEntity GetById(long id);
-        object Insert(TEntity entity);
+        long Insert(TEntity entity);
         bool Update(TEntity entity);
         bool Delete(TEntity entity);
         IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);        

@@ -59,13 +59,10 @@ namespace UTestProject.Map
                 var lambda = generateLambdaFromPropertyInfo(column, typeClass);
                 columnName = column.Key;
 
-                Map(lambda).ToColumn(columnName).IsKey();
+                Map(lambda).ToColumn(columnName);
             }
 
-            //var a = new CustomKeyPropertyResolver();
-            //a.ResolveKeyProperty(typeClass);
-
-            //DommelMapper.SetKeyPropertyResolver(a);
+            
         }
 
         private Expression<Func<T, object>> generateLambdaFromPropertyInfo(KeyValuePair<string, PropertyInfo> column, Type typeClass)
@@ -79,17 +76,4 @@ namespace UTestProject.Map
 
     }
 
-    public class CustomKeyPropertyResolver : DommelMapper.IKeyPropertyResolver
-    {
-        public PropertyInfo ResolveKeyProperty(Type type)
-        {
-            return type.GetProperties().Single(p => p.Name == $"{type.Name}Id");
-        }
-
-        public PropertyInfo ResolveKeyProperty(Type type, out bool isIdentity)
-        {
-            isIdentity = false;
-            return type.GetProperties().Single(p => p.Name == $"{type.Name}");
-        }
-    }
 }

@@ -12,7 +12,7 @@ namespace UTestProject.Class
         public string Nome { get; set; }
 
         [DBColumnForeignKey("PessoaId")]
-        public long PessoaId { get; set; }
+        public int PessoaId { get; set; }
 
         public Pessoa pessoa { get; set; }
     }

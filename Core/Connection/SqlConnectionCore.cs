@@ -88,8 +88,8 @@ namespace Core.Connection
 
         #region CRUD
 
-        public object Insert<T>(T entity) where T : class
-          {
+        public long Insert<T>(T entity) where T : class
+        {
             object Id = 0;
 
             if (Transaction != null)
@@ -97,10 +97,10 @@ namespace Core.Connection
             else
                 Id = sqlConnection.Insert<T>(entity);
 
-            return Id;
-          }
+            return Convert.ToInt64(Id);
+        }
 
-          public bool Update<T>(T entity) where T: class
+        public bool Update<T>(T entity) where T: class
           {
             if (Transaction != null)
                 return sqlConnection.Update<T>(entity,Transaction);

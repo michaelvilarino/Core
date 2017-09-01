@@ -7,6 +7,7 @@ using UTestProject.Class;
 using System.Collections.Generic;
 using Core.Connection;
 using System.Linq;
+using System;
 
 namespace UTestProject
 {
@@ -27,110 +28,53 @@ namespace UTestProject
             RegisterMappings.Register<Dependente>();
             RegisterMappings.Register<Trabalho>();
             RegisterMappings.InitializeConfigMappings();
+
+            _pessoaRepository     = new PessoaRepository(_sqlConnectionCore);
+            _dependenteRepository = new DependenteRepository(_sqlConnectionCore);
+            _trabalhoRepository   = new TrabalhoRepository(_sqlConnectionCore);
+
         }
 
+
         [TestMethod]
-        public void GetList()
-        {
-            using (SqlConnectionCore connection = new SqlConnectionCore(ConfigurationManager.ConnectionStrings["Conexao"].ConnectionString))
+        public void InsertUsersLote()
+        {            
+            _sqlConnectionCore.BeginTransaction();
+
+            try
             {
-                _pessoaRepository = new PessoaRepository(connection);
-                var pessoas = _pessoaRepository.GetAll();
+                for (int i = 0; i <= 100; i++)
+                {
+                    Pessoa pessoa = new Pessoa() { Nome_pessoa = "Michael_Teste " + i };
+
+                    var Id = _pessoaRepository.Insert(pessoa);
+
+                    Dependente dependente = new Dependente() { Nome = "dependente "+i, PessoaId =   (int)Id };
+
+                    _dependenteRepository.Insert(dependente);
+                }
+
+                _sqlConnectionCore.CommitTransaction();
             }
+            catch (System.Exception e)
+            {
+                _sqlConnectionCore.RollBackTransaction();
+                throw e;
+            }
+
+            
         }
 
         [TestMethod]
-        public void GetAll()
-        {
-            _pessoaRepository = new PessoaRepository(_sqlConnectionCore);
-            var pessoaa = _pessoaRepository.GetPessoaJose();
+        public void ListAllPessoas()
+        {            
+            var result = _pessoaRepository.GetAll();
         }
 
         [TestMethod]
-        public void GetdependenteComParente()
+        public void ListAllPessoas_dependentes()
         {
-            _dependenteRepository = new DependenteRepository(_sqlConnectionCore);
-
-            var result = _dependenteRepository.GetDependentes_Pessoas().ToList();
-        }
-
-        [TestMethod]
-        public void GetPessoasDependentes()
-        {
-            _pessoaRepository = new PessoaRepository(_sqlConnectionCore);
             var result = _pessoaRepository.GetPessoa_Dependentes();
-        }
-
-        [TestMethod]
-        public void InsertNewPessoa()
-        {
-            _pessoaRepository = new PessoaRepository(_sqlConnectionCore);
-
-            var result = new Pessoa();
-
-           // long proximoId = _pessoaRepository.ProximoId();
-
-            Pessoa pessoa = new Pessoa() { };
-
-           // pessoa.Id = proximoId;
-            pessoa.Nome_pessoa = "teste25";
-
-            //if(_pessoaRepository.GetByName(pessoa.Nome_pessoa) == null)
-               result = _pessoaRepository.Inserir(pessoa);
-        }
-
-        [TestMethod]
-        public void InsertDependente()
-        {
-            //_dependenteRepository = new DependenteRepository(_sqlConnectionCore);
-
-            //Dependente dependente = new Dependente() {  Nome = "dependente1", pessoa_Id = 1 };
-
-            //_dependenteRepository.Insert(dependente);
-        }
-
-        [TestMethod]
-        public void getAllDependentesAndPessoas()
-        {
-            _dependenteRepository = new DependenteRepository(_sqlConnectionCore);
-
-            List<Dependente> Dependentes = _dependenteRepository.GetDependentes_Pessoas().ToList();
-        }
-
-        [TestMethod]
-        public void getPessoa_Trabalhos()
-        {
-            _trabalhoRepository = new TrabalhoRepository(_sqlConnectionCore);
-            var result = _trabalhoRepository.GettrabalhosPessoas();
-        }
-
-        [TestMethod]
-        public void GetAllTrabalhos()
-        {
-            _trabalhoRepository = new TrabalhoRepository(_sqlConnectionCore);
-
-            var result = _trabalhoRepository.GetAll();
-        }
-
-        [TestMethod]
-        public void GetPessoa_trabalho()
-        {
-            _pessoaRepository = new PessoaRepository(_sqlConnectionCore);
-            var result = _pessoaRepository.GetPessoa_Trabalhos();
-        }
-
-        [TestMethod]
-        public void CadastraTrabalho()
-        {
-
-            Trabalho trabalho   = new Trabalho();
-            trabalho.Descricao  = "Juiz";
-            trabalho.Salario    = 2000;
-            trabalho.PessoaId   = 8;
-
-            _trabalhoRepository = new TrabalhoRepository(_sqlConnectionCore);
-            _trabalhoRepository.Insert(trabalho);
-
         }
     }
 }

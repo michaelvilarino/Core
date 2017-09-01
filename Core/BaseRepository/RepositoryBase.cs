@@ -29,7 +29,7 @@ namespace Core.BaseRepository
             return _sqlConnectionCore.Select<TEntity>(predicate);
         }
 
-        public object Insert(TEntity entity)
+        public long Insert(TEntity entity)
         {
             return _sqlConnectionCore.Insert<TEntity>(entity);
         }
