@@ -2,8 +2,6 @@
 --------
 Este repositório é uma extensão do Dapper, com o objetivo de utilização totalmente voltada à objetos.
 
-Ele utiliza as extensões: Dommel, Dapper, Dapper.fluentMap, Dapper.FluentMap.Dommel e Costura.
-
 Para utilizá-lo, basta incluir o Core.Dll em seu projeto.
 
 **Forma de Utilização:**
