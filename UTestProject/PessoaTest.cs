@@ -61,7 +61,6 @@ namespace UTestProject
                 _sqlConnectionCore.RollBackTransaction();
                 throw e;
             }
-
             
         }
 
@@ -75,6 +74,27 @@ namespace UTestProject
         public void ListAllPessoas_dependentes()
         {
             var result = _pessoaRepository.GetPessoa_Dependentes();
+        }
+
+        [TestMethod]
+        public void UpdatePessoa()
+        {
+            var pessoa = _pessoaRepository.GetByName("Michael_Teste 0");
+
+            pessoa.Nome_pessoa = "Atualizado";
+
+            _pessoaRepository.Update(pessoa);
+        }
+
+        [TestMethod]
+        public void DeleteDependente()
+        {
+            var dependentes = _dependenteRepository.GetListWithPredicate(w => w.Id >= 19 && w.Id <= 30).ToList();
+
+            foreach (var dep in dependentes)
+            {
+                _dependenteRepository.Delete(dep);
+            }
         }
     }
 }

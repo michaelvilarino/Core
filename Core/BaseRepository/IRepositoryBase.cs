@@ -11,6 +11,6 @@ namespace Core.BaseRepository
         long Insert(TEntity entity);
         bool Update(TEntity entity);
         bool Delete(TEntity entity);
-        IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate);        
+        IEnumerable<TEntity> GetListWithPredicate(Expression<Func<TEntity, bool>> predicate);        
     }
 }

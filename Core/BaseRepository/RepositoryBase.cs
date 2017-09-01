@@ -24,7 +24,7 @@ namespace Core.BaseRepository
             return _sqlConnectionCore.Get<TEntity>(id);
         }
 
-        public IEnumerable<TEntity> GetList(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> GetListWithPredicate(Expression<Func<TEntity, bool>> predicate)
         {
             return _sqlConnectionCore.Select<TEntity>(predicate);
         }
