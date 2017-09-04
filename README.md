@@ -10,38 +10,40 @@ Criar as classes conforme os atributos abaixo:
     [DBTable("tblPessoa")]
     public class Pessoa
     {
-        [DBColumn("Id")]
+        [Key("Id")]  //O atributo "key", apenas identifica que é chave primária, já o atributo "Key_AutoIncrement", identifica uma chave primária auto-increment        
         public long Id { get; set; }
 
         [DBColumn("Nome")]
         public string Nome_pessoa { get; set; }
     }
      
-    [DBTable("tblDependente")]
-    public class Dependente
-    {
-      [DBColumn("Id")]
-        public long Id { get; set; }
-  
-      [DBColumn("Nome")]
-        public string Nome { get; set; }  
-      
-      //Não utilizar Underline para Fk - Será corrigido no próximo release  
-      [DBColumn("PessoaId")]
-        public long PessoaId { get; set; } 
+    Mapeando chaves estrangeiras (A nomenclatura deste tipo de propriedade, deverá sempre terminar com um "Id").
 
-       //Objeto de navegação, não precisa de atributo (usado em joins)
-       public Pessoa pessoa { get; set; } 
+    [DBTable("Dependente")]
+    public class Dependente 
+    {
+       [Key_AutoIncrement("Id")]
+        public int Id { get; set; }
+
+        [DBColumn("Nome")]
+        public string Nome { get; set; }
+
+        [DBColumnForeignKey("PessoaId")]  //Atributo "DBColumnForeignKey", necessário para identificar uma  Foreign Key
+        public int PessoaId { get; set; } // Nomenclatura do ForeignKey terminando com as letras "Id"
+
+        public Pessoa pessoa { get; set; }
     }
 
 Após a criação das classes, será necessário registrá-las no core, afim de realizar os mapeamentos, coloque esse exemplo de código na inicialização de seu projeto, no meu caso é global.asax (Projeto web em MVC):
 
      RegisterMappings.Register<Pessoa>();
-     RegisterMappings.InitializeConfigMappings();
+     RegisterMappings.Register<Dependente>();
+     
+     RegisterMappings.InitializeConfigMappings(); //Inicializa todos os mapeamentos
 
 **Utilizando o BaseRepository do Core:**
 
-O Core.Dll trabalha com uma extensão do SqlConnection chamado: SqlConnectionCore, nele temos todos os métodos necessários para realizar qualquer tipo de transação.
+O CoreForDapper trabalha com uma extensão do SqlConnection chamado: SqlConnectionCore, nele temos todos os métodos necessários para realizar qualquer tipo de transação.
 
     RepositoryBase do Core:
     Possui os métodos padrões de Crud e seleção de dados:
@@ -89,8 +91,8 @@ Utilizando o PessoaRepository  na aplicação:
          _pessoaRepository.Insert(pessoa);
       }            
     }
-
-Utilizando Join: (Limitado até 7 tabelas, será disponibilizado mais)
+    
+    Utilizando Join: (Limitado até 7 tabelas)
 
     public class DependenteRepository : RepositoryBase<Dependente>
     {
