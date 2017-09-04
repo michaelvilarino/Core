@@ -1,6 +1,6 @@
 **CoreForDapper**
 --------
-Este repositório é uma extensão do Dapper, com o objetivo de utilização totalmente voltada à objetos.
+Esta é uma extensão do Dapper, com o objetivo de utilização totalmente voltada à objetos.
 
 **Forma de Utilização:**
 Criar as classes conforme os atributos abaixo:
