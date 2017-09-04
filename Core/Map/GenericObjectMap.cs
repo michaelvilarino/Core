@@ -27,7 +27,7 @@ namespace UTestProject.Map
             if (_map.PkCollection.Count == 0 && _map.PkAutoIncrementCollection.Count == 0)
                 throw new Exception("Nenhuma chave primária foi definida");
 
-            if (_map.PkCollection.Count > 0 && _map.PkCollection.Count > 0)
+            if (_map.PkCollection.Count > 0 && _map.PkAutoIncrementCollection.Count > 0)
                 throw new Exception("A definição da chave primaria está incorreta!");
 
             foreach (var column in _map.PkCollection)

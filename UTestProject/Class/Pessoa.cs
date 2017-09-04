@@ -11,7 +11,7 @@ namespace UTestProject.Class
     [DBTable("Pessoa")]
     public class Pessoa
     {
-        [Key_AutoIncrement("Id")]
+        [Key("Id")]
         public long Id { get; set; }
 
         [DBColumn("Nome")]
