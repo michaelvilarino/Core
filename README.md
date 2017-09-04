@@ -1,8 +1,6 @@
-**Core**
+**CoreForDapper**
 --------
 Este repositório é uma extensão do Dapper, com o objetivo de utilização totalmente voltada à objetos.
-
-Para utilizá-lo, basta incluir o Core.Dll em seu projeto.
 
 **Forma de Utilização:**
 Criar as classes conforme os atributos abaixo:
