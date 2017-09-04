@@ -103,7 +103,15 @@ namespace Core.MappingClass
                   DBColumnCollection.Add(attributesColumn.Column, prop);
 
                 if (attributesForeignKey != null)
-                  DBColumnForeignKeyCollection.Add(attributesForeignKey.Column, prop);                
+                {
+                    var lengthNameProp = prop.Name.Length;
+                    int startPosition = lengthNameProp - 2; 
+
+                    if (prop.Name.Substring(startPosition, 2) != "Id" && prop.Name.Substring(startPosition, 2) != "id")
+                        throw new Exception("Uma propriedade foreign Key deve terminar com os caracteres: 'Id' ");
+                    else
+                        DBColumnForeignKeyCollection.Add(attributesForeignKey.Column, prop);
+                }
 
                 if (attributesKey != null)
                   PkCollection.Add(attributesKey.Column, prop);
