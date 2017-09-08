@@ -74,6 +74,7 @@
     <Compile Include="Map\GenericObjectMap.cs" />
     <Compile Include="Map\RegisterMappings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

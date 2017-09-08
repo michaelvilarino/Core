@@ -96,5 +96,11 @@ namespace UTestProject
                 _dependenteRepository.Delete(dep);
             }
         }
+
+        [TestMethod]
+        public void TodasPessoas()
+        {
+            var todasPessoas = _pessoaRepository.todasPessoas(2, 10);
+        }
     }
 }

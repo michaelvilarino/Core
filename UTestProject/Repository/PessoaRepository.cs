@@ -9,6 +9,7 @@ using Dapper;
 using System.Data.SqlClient;
 using Dommel;
 using Core.Connection;
+using Core.Util;
 
 namespace UTestProject.Repository
 {
@@ -53,6 +54,12 @@ namespace UTestProject.Repository
 
             });    
         }
-        
+
+        public List<Pessoa> todasPessoas(int currentPage, int pagesize)
+        {
+            int pages = 0;
+
+            return _connection.GetAll<Pessoa>().Paginate(currentPage, pagesize, out pages, o => o.Id).ToList();
+        }
     }
 }
