@@ -13,7 +13,7 @@ namespace Core.Util
        int currentPage,
        int pageSize,
        out int pages,
-       Expression<Func<T, TResult>> OrderByExpression = null,
+       Expression<Func<T, TResult>> OrderByExpression,
        bool OrderByAsc = false       
     )
     where T : class
