@@ -2,6 +2,9 @@
 --------
 Esta é uma extensão do Dapper, com o objetivo de utilização totalmente voltada à objetos.
 
+**Url do Nuget**
+https://www.nuget.org/packages/CoreForDapper/
+
 **Forma de Utilização:**
 Criar as classes conforme os atributos abaixo:
 
